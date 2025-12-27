@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful & Attractive Responsive Header - TutorialsPoint Inspired</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding-top: 80px;
+            min-height: 150vh;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            padding: 15px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 10px 30px;
+            background: rgba(106, 17, 203, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo span {
+            color: #ffd700;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 17px;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 8px 15px;
+            width: 220px;
+            font-size: 16px;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-box button {
+            background: #ffd700;
+            color: #6a11cb;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: #ffed4e;
+            transform: rotate(360deg);
+        }
+
+        .hamburger {
+            display: none;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 80px 30px 30px;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 500;
+            display: block;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .mobile-search {
+            margin: 30px 0;
+        }
+
+        .mobile-search input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .mobile-search input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links, .search-box {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+        }
+
+        .content {
+            padding: 60px 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">Tutorials<span>Point</span></a>
+
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Tutorials</a>
+                <a href="#">Library</a>
+                <a href="#">Coding Ground</a>
+                <a href="#">Contact</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" placeholder="Search tutorials...">
+                <button><i class="fas fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close" id="closeMenu"><i class="fas fa-xmark"></i></div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Library</a></li>
+            <li><a href="#">Coding Ground</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="mobile-search">
+            <input type="text" placeholder="Search tutorials...">
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Beautiful & Colorful Responsive Header</h1>
+        <p>This modern header is inspired by TutorialsPoint but upgraded with vibrant gradients, smooth animations, glassmorphism effects, and a stunning mobile slide-in menu.</p>
+        <p>Features glass-like transparency on scroll, hover effects, rounded buttons, Google Fonts (Poppins), and full responsiveness.</p>
+        <p>Try resizing the window or scrolling down to see the magic! ✨</p>
+    </div>
+
+    <script>
+        const header = document.getElementById('header');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        // Scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Open mobile menu
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        // Close mobile menu
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+    </script>
+
+</body>
+</html>

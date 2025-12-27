@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Header</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 200vh;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-icon {
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Desktop search bar (expands inline) */
+        .search-bar {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            overflow: hidden;
+            transition: width 0.4s ease;
+            background: #fff;
+            border-radius: 4px;
+        }
+
+        .search-bar.active {
+            width: 250px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 0 0.8rem;
+            background: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Full-screen mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-menu ul li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-menu ul li a {
+            color: #fff;
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+
+        /* Mobile search dropdown */
+        .mobile-search-dropdown {
+            position: fixed;
+            top: 70px; /* Below header height */
+            left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 1rem;
+            text-align: center;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            z-index: 998;
+        }
+
+        .mobile-search-dropdown.active {
+            max-height: 100px;
+        }
+
+        .mobile-search-dropdown input {
+            width: 80%;
+            max-width: 400px;
+            padding: 0.8rem 2.5rem 0.8rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .mobile-search-dropdown button {
+            position: absolute;
+            margin-left: -3rem;
+            margin-top: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Media Query for Mobile (<993px) */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .search-icon {
+                order: 2;
+            }
+
+            .hamburger {
+                display: block;
+                order: 3;
+            }
+
+            /* Desktop inline search hidden on mobile */
+            .search-bar {
+                display: none;
+            }
+
+            /* Mobile search uses dropdown */
+            .mobile-search-dropdown {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Logo</div>
+
+    <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="search-container">
+        <i class="fas fa-search search-icon" id="searchIcon"></i>
+
+        <!-- Desktop expanding search -->
+        <div class="search-bar" id="desktopSearch">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <i class="fas fa-bars hamburger" id="hamburger"></i>
+</header>
+
+<!-- Mobile full-screen menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <i class="fas fa-times close-btn" id="closeMenu"></i>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</div>
+
+<!-- Mobile centered dropdown search -->
+<div class="mobile-search-dropdown" id="mobileSearch">
+    <form style="position: relative;">
+        <input type="text" placeholder="Search...">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+</div>
+
+<script>
+    const searchIcon = document.getElementById('searchIcon');
+    const desktopSearch = document.getElementById('desktopSearch');
+    const mobileSearch = document.getElementById('mobileSearch');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+
+    // Toggle search based on screen size
+    searchIcon.addEventListener('click', () => {
+        if (window.innerWidth >= 993) {
+            desktopSearch.classList.toggle('active');
+            mobileSearch.classList.remove('active');
+        } else {
+            mobileSearch.classList.toggle('active');
+            desktopSearch.classList.remove('active');
+        }
+    });
+
+    // Hamburger menu
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+    });
+
+    closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+    });
+
+    // Close mobile menu if clicking outside (optional)
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+</script>
+
+</body>
+</html>
