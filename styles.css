@@ -60,6 +60,7 @@ body {
     height: clamp(36px, 8vw, 50px);
     object-fit: contain;
     border-radius: 8px;
+    background-color:white;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 .accent { color: var(--accent); }
@@ -457,6 +458,7 @@ body {
         margin-top: 8px;
     }
 }
+
 
 
 
