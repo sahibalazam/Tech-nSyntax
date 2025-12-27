@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Copy Protection</title>
+
+  <!-- Internal CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .text-box {
+      background: white;
+      padding: 30px;
+      font-size: 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      user-select: text;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="text-box" id="copyText">
+    don't copy
+  </div>
+
+  <!-- Internal JavaScript -->
+  <script>
+    document.getElementById("copyText").addEventListener("copy", function (e) {
+      e.preventDefault(); // stop default copy
+      e.clipboardData.setData("text/plain", "You're failed");
+    });
+  </script>
+
+</body>
+</html>
